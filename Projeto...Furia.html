@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FURIA Fan Chatbot</title>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    h1 {
+      text-align: center;
+      color: #f5c518;
+    }
+    #intro {
+      background-color: #222;
+      border-left: 5px solid #f5c518;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+    }
+    #chat {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #333;
+      padding: 10px;
+      background-color: #111;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .message {
+      margin-bottom: 10px;
+    }
+    .user {
+      color: #00ffcc;
+    }
+    .bot {
+      color: #f5c518;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #f5c518;
+      color: #000;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Chatbot FURIA 🐾</h1>
+    <div id="intro">
+      👋 Bem-vindo, fã da FURIA! Aqui estão alguns comandos que você pode usar:<br>
+      🔸 <strong>jogos</strong> – Ver a próxima partida<br>
+      🔸 <strong>notícias</strong> – Últimas novidades do time<br>
+      🔸 <strong>elenco</strong> – Ver os jogadores da FURIA<br>
+      🔸 <strong>loja</strong> – Info sobre camisetas e produtos<br>
+      🔸 <strong>curiosidade</strong> – Fatos e história da FURIA<br>
+      🔸 <strong>hino</strong> ou <strong>grito</strong> – Conheça o grito da torcida<br>
+      🔸 <strong>fallen</strong> ou <strong>kscerato</strong> – Info sobre jogadores específicos<br>
+      Bora interagir e viver essa paixão juntos! 🔥
+    </div>
+    <div id="chat"></div>
+    <input type="text" id="userInput" placeholder="Digite sua mensagem...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById("chat");
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const message = input.value.trim();
+      if (message === "") return;
+
+      appendMessage("Você", message, "user");
+      input.value = "";
+
+      setTimeout(() => {
+        const reply = getBotResponse(message);
+        appendMessage("FURIA Bot", reply, "bot");
+      }, 500);
+    }
+
+    function appendMessage(sender, message, type) {
+      const msg = document.createElement("div");
+      msg.className = `message ${type}`;
+      msg.innerHTML = `<strong>${sender}:</strong> ${message}`;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function getBotResponse(msg) {
+      const m = msg.toLowerCase();
+
+      if (m.includes("jogo") || m.includes("agenda")) {
+        return "Próximo jogo: FURIA vs NAVI — Sexta às 18h (ao vivo na Twitch). Não perde, ein!";
+      }
+      if (m.includes("notícia") || m.includes("news")) {
+        return "🔥 Última notícia: FURIA vence a MIBR por 2x1 e sobe no ranking mundial. Vamos pra cima!";
+      }
+      if (m.includes("jogador") || m.includes("player") || m.includes("elenco")) {
+        return "👥 Elenco FURIA 2025:\n- FalleN (IGL e AWP)\n- KSCERATO (rifler)\n- yuurih (rifler)\n- molodoy (entry)\n- YEKINDAR (stand-in)\nTreinador: sidde | Assistente: Hepa";
+      }
+      if (m.includes("loja") || m.includes("camisa")) {
+        return "🛒 Confere os mantos da FURIA em https://furia.gg/shop — Representa com estilo!";
+      }
+      if (m.includes("curiosidade") || m.includes("quiz")) {
+        return "🐾 Curiosidade: Sabia que o nome 'FURIA' vem da paixão e intensidade dos fundadores? A equipe foi fundada em 2017 e já enfrentou lendas como Astralis, Vitality e NAVI nos palcos mais insanos do CS!";
+      }
+      if (m.includes("música") || m.includes("entrada")) {
+        return "🎧 A entrada da FURIA nos campeonatos é ao som de 'Oh Fortuna' misturado com batidas eletrônicas — arrepia qualquer fã!";
+      }
+      if (m.includes("hino") || m.includes("grito")) {
+        return "🔊 Hino não oficial da torcida: 'F-U-R-I-A, ninguém segura a FURIA!' — já ouviu nos eventos?";
+      }
+      if (m.includes("falleN") || m.includes("fallen")) {
+        return "🎯 FalleN, o Professor! Uma lenda viva do CS:GO, campeão de Major, referência global e agora liderando a FURIA com toda experiência!";
+      }
+      if (m.includes("kscerato")) {
+        return "🔥 KSCERATO é uma máquina! Um dos riflers mais consistentes do mundo — puro clutch, puro highlight!";
+      }
+
+      return "🤖 Não entendi... Tente perguntar sobre 'jogos', 'notícias', 'elenco', 'loja', 'curiosidades', 'FalleN', 'KSCERATO' ou até o 'grito da torcida'. Bora interagir, fã raiz!";
+    }
+  </script>
+</body>
+</html>
